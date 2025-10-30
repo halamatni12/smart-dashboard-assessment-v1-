@@ -1,0 +1,252 @@
+
+<div *ngIf="loading(); else mainContent" class="loading-screen text-center text-light py-5">
+  <div class="spinner-border text-light mb-3" role="status"></div>
+  <p class="fs-5 mb-0">Detecting your location...</p>
+  <small class="opacity-75">Please allow location access</small>
+</div>
+
+<ng-template #mainContent>
+  <div class="dashboard-container" [style.backgroundImage]="bgUrl()" [ngClass]="overlayMode()">
+    <div class="overlay"></div>
+
+    <div class="container-xl py-5 position-relative z-3">
+
+      <div class="user-bar d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div class="user-name text-light fw-semibold d-flex align-items-center gap-2">
+          <i class="bi bi-person-circle fs-4"></i>
+          <span>{{ userName() }}</span>
+        </div>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </div>
+
+      <div class="search-wrapper mb-4 position-relative">
+        <div class="search-container d-flex align-items-center glass-input">
+          <i class="bi bi-search search-icon"></i>
+          <input
+            type="text"
+            placeholder="Search city..."
+            class="search-bar flex-grow-1"
+            [(ngModel)]="searchQuery"
+            #cityInput
+          />
+          <button class="logout-btn ms-2" (click)="onSearch(searchQuery)">
+            Search
+          </button>
+        </div>
+
+        
+        <div *ngIf="showSuggestions()" class="suggestions glass-dropdown">
+          <div
+            *ngFor="let s of filteredSuggestions()"
+            class="suggestion-item"
+            (click)="selectSuggestion(s)"
+          >
+            <i class="bi bi-geo-alt-fill me-2"></i>{{ s }}
+          </div>
+        </div>
+      </div>
+
+  
+      <div class="row g-4 align-items-stretch">
+
+     
+        <div class="col-12 col-lg-6">
+          <div class="card main-card text-center p-4 h-100">
+            <h2 class="city mb-2 fw-semibold">
+              {{ city() === 'Your Location' ? '📍 Your Location' : city() }}
+            </h2>
+            <div class="main-weather-icon display-2">{{ getWeatherIcon(dailyForecast()?.weathercode[0]) }}</div>
+            <h1 class="temp fw-bold display-2">{{ temperature() | number:'1.0-0' }}°C</h1>
+            <p class="condition mb-0">{{ condition() }}</p>
+            <p class="feels mt-1">
+              H:{{ dailyForecast().temperature_2m_max[0] | number:'1.0-0' }}° |
+              L:{{ dailyForecast().temperature_2m_min[0] | number:'1.0-0' }}°
+            </p>
+          </div>
+        </div>
+
+        
+        <div class="col-12 col-lg-6">
+          <div class="card highlights-card h-100 p-4">
+            <h4 class="fw-semibold mb-3">Today's Highlights</h4>
+            <div class="row g-3 text-center">
+
+              <div class="col-6 col-md-4 highlight-box">
+                <h6><i class="meteocons mc-wind"></i> Wind</h6>
+                <p>{{ windSpeed() }} km/h</p>
+              </div>
+
+              <div class="col-6 col-md-4 highlight-box">
+                <h6><i class="meteocons mc-humidity"></i> Humidity</h6>
+                <p>{{ humidity() }}%</p>
+              </div>
+
+              <div class="col-6 col-md-4 highlight-box">
+                <h6><i class="meteocons mc-uv"></i> UV</h6>
+                <p>{{ uvIndex() }}</p>
+              </div>
+
+              <div class="col-6 col-md-4 highlight-box">
+                <h6><i class="meteocons mc-rain"></i> Rain</h6>
+                <p>{{ chanceOfRain() }}%</p>
+              </div>
+
+              <div class="col-6 col-md-4 highlight-box">
+                <h6><i class="meteocons mc-sunrise"></i> Sunrise</h6>
+                <p>{{ sunrise() | date:'shortTime' }}</p>
+              </div>
+
+              <div class="col-6 col-md-4 highlight-box">
+                <h6><i class="meteocons mc-sunset"></i> Sunset</h6>
+                <p>{{ sunset() | date:'shortTime' }}</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+          <div class="col-12 mt-4">
+          <div class="card forecast-card p-4">
+            <h4 class="fw-semibold mb-3 d-flex align-items-center">
+              <i class="bi bi-clock-history me-2"></i>Hourly Forecast
+            </h4>
+            <p class="weather-summary text-center mb-4">{{ summaryText() }}</p>
+
+            <div class="hourly-forecast px-2 py-2">
+              <div
+                *ngFor="let h of hourlyForecast().time; let i = index"
+                class="hour-cell text-center rounded-3 py-3 px-2"
+              >
+                <small class="fw-semibold text-uppercase d-block">
+                  {{ i === 0 ? 'Now' : (h | date:'ha') }}
+                </small>
+                <div class="hour-icon fs-4">{{ getWeatherIcon(hourlyForecast().weathercode[i]) }}</div>
+                <div class="fw-semibold">{{ hourlyForecast().temperature_2m[i] | number:'1.0-0' }}°</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-12 mt-4">
+          <div class="card forecast-card p-4 glass-iphone">
+            <h4 class="fw-semibold mb-3 d-flex align-items-center">
+              <i class="bi bi-calendar-week me-2"></i>10-Day Forecast
+            </h4>
+
+            <div class="ten-day-forecast">
+              <div
+                *ngFor="let d of dailyForecast().time; let i = index"
+                class="forecast-row d-flex align-items-center justify-content-between py-2 border-bottom"
+              >
+                <div class="col-day fw-semibold" style="width: 80px;">
+                  {{ i === 0 ? 'Today' : (d | date:'EEE') }}
+                </div>
+
+                <div class="col-icon text-center" style="width: 40px;">
+                  <span class="fs-5">{{ getWeatherIcon(dailyForecast().weathercode[i]) }}</span>
+                </div>
+
+                <div class="col-min text-end opacity-75" style="width: 40px;">
+                  {{ dailyForecast().temperature_2m_min[i] | number:'1.0-0' }}°
+                </div>
+
+                <div class="col-bar flex-grow-1 mx-3 position-relative">
+                  <div class="temp-bar-bg"></div>
+                  <div
+                    class="temp-bar-fill"
+                    [style.left]="calcTempBarPosition(dailyForecast().temperature_2m_min[i]) + '%'"
+                    [style.width]="calcTempBarWidth(
+                      dailyForecast().temperature_2m_min[i],
+                      dailyForecast().temperature_2m_max[i]
+                    ) + '%'"
+                  ></div>
+                </div>
+
+                <div class="col-max text-start" style="width: 40px;">
+                  {{ dailyForecast().temperature_2m_max[i] | number:'1.0-0' }}°
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+<div class="col-12 mt-5">
+  <div class="card glass-iphone p-4">
+    <h4 class="fw-semibold mb-4 d-flex align-items-center">
+      <i class="bi bi-globe2 me-2"></i>Other Cities
+    </h4>
+
+    <div class="row g-3">
+      <div
+        class="col-6 col-md-4 col-lg-2"
+        *ngFor="let city of otherCitiesData()"
+      >
+        <div class="city-card text-center p-3 h-100">
+          <h6 class="fw-semibold mb-1">{{ city.name }}</h6>
+          <div class="display-6">{{ city.icon }}</div>
+          <p class="mb-0">
+            <span class="fw-bold">{{ city.temp }}°C</span><br />
+            <small>{{ city.condition }}</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        <div class="col-12 col-md-6 mt-4">
+          <div class="card pressure-card text-center p-4">
+            <h5 class="fw-semibold mb-3">Pressure</h5>
+            <div class="pressure-gauge">
+              <div class="gauge-arc"></div>
+              <div
+                class="gauge-needle"
+                [style.background]="getPressureColor()"
+                [style.transform]="getPressureRotation()"
+              ></div>
+              <div class="pressure-value">
+                {{ (pressure() / 33.8639) | number:'1.2-2' }}
+                <span class="unit">inHg</span>
+              </div>
+            </div>
+            <div class="gauge-labels d-flex justify-content-between mt-2">
+              <span>Low</span>
+              <span>High</span>
+            </div>
+          </div>
+        </div>
+
+    
+        <div class="col-12 col-md-6 mt-4">
+          <div class="card text-center p-4">
+            <div class="card-title-row">
+              <h5 class="fw-semibold mb-0">Altitude</h5>
+              <span class="hint" aria-label="More info">
+                <i class="bi bi-info-circle"></i>
+                <span class="hint-bubble">
+                  Elevation above sea level (from API <b>elevation</b>).<br />
+                  Not device GPS height.<br />
+                  Unit: meters (m).
+                </span>
+              </span>
+            </div>
+            <div class="display-6 fw-bold my-2">
+              {{ altitude() }} <span class="unit">m</span>
+            </div>
+          </div>
+        </div>
+
+        <small class="opacity-75 d-block mt-1 text-center">
+          {{
+            (pressure()/33.8639) < 29.5
+              ? 'Low'
+              : ((pressure()/33.8639) > 30.5 ? 'High' : 'Normal')
+          }} pressure for today
+        </small>
+      </div>
+    </div> 
+    
+  </div> 
+</ng-template>

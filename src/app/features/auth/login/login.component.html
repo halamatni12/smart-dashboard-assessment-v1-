@@ -1,0 +1,77 @@
+<div class="auth theme-light">
+  
+  <section class="hero fade-up">
+    <div class="hero-content">
+      <h1 class="brand">Smart Lifestyle</h1>
+      <p class="tagline">
+        Your day starts smarter — combining weather insights and personalized shopping.
+      </p>
+
+      <div class="chips">
+        <span class="chip">🌤 Live Forecast</span>
+        <span class="chip">🛍 Smart Products</span>
+        <span class="chip">💡 Daily Picks</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <div class="login-card scale-in">
+      <div class="icon">
+        <i class="bi bi-person-circle"></i>
+      </div>
+
+      <h2 class="title">Welcome Back</h2>
+      <p class="subtitle">Sign in to start your personalized day</p>
+
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm" novalidate>
+        <div class="field">
+          <label>Email Address</label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            placeholder="you@example.com"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="••••••••"
+            required
+          />
+        </div>
+
+        <div class="options">
+          <label class="check">
+            <input type="checkbox" />
+            <span>Remember me</span>
+          </label>
+          <a class="link" href="/forgot-password">Forgot password?</a>
+        </div>
+
+        <button class="btn" type="submit" [disabled]="loading">
+          <ng-container *ngIf="!loading; else loadingTpl">
+            <i class="bi bi-box-arrow-in-right me-2"></i> Sign in
+          </ng-container>
+          <ng-template #loadingTpl>
+            <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+            Signing in...
+          </ng-template>
+        </button>
+
+        <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+        <p class="muted center mt-2">
+          Don’t have an account?
+          <a class="link" href="/signup">Create one</a>
+        </p>
+      </form>
+    </div>
+  </section>
+</div>

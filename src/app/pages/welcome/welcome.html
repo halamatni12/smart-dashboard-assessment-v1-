@@ -1,0 +1,45 @@
+<div class="welcome">
+  <div class="overlay"></div>
+
+  <div class="container-xl content py-5">
+    <div class="row g-4 align-items-center">
+      <div class="col-12 col-lg-6 fade-up">
+        <div class="glass p-4 p-md-5">
+          <p class="greeting mb-1">Good Afternoon <span class="wave">👋</span></p>
+          <h1 class="headline mb-2">
+            Welcome back, <span class="accent">{{ auth.displayName() }}</span>
+          </h1>
+          <p class="quote">Keep the energy flowing ⚡</p>
+
+          <p class="mood lead mb-4">
+            It feels like <strong>{{ condition() }}</strong> in 
+            <strong>{{ city() }}</strong> —
+            <span *ngIf="tempC() !== null">{{ tempC() }}°C</span>
+          </p>
+
+          <div class="tags">
+            <div class="tag">Smart Lifestyle</div>
+            <div class="tag">Weather-Aware</div>
+            <div class="tag">Personalized Picks</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6 fade-up delay-1">
+        <div class="choices">
+          <button class="choice" (click)="goToWeather()">
+            <div class="icon">🌤️</div>
+            <div class="title">Weather Dashboard</div>
+            <div class="desc">View today’s conditions and forecasts with insights.</div>
+          </button>
+
+          <button class="choice" (click)="goToProducts()">
+            <div class="icon">🛍️</div>
+            <div class="title">Smart Product Picks</div>
+            <div class="desc">Get curated items that match your vibe and weather.</div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
