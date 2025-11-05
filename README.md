@@ -1,4 +1,6 @@
 # 🌦️ Smart Dashboard Assessment v1
+[![Live Demo](https://img.shields.io/badge/LIVE%20DEMO-Click%20Here-brightgreen?style=for-the-badge)](https://smart-lifestyle-bb812.web.app)
+
 
 A full-featured **Angular 17** application combining a real-time **Weather Dashboard** with an integrated **E-Commerce System**, built to demonstrate advanced frontend development using **Firebase**, **Bootstrap 5**, and modern **Angular Signals** state management.
 
