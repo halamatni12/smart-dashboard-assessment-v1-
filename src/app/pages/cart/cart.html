@@ -1,0 +1,86 @@
+<app-navbar></app-navbar>
+
+<section class="cart-page container py-5">
+
+  <h2 class="mb-4">
+    <i class="bi bi-cart text-primary"></i> Shopping Cart
+  </h2>
+
+  <div *ngIf="cart().length > 0; else emptyCart">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>Select</th>
+          <th>Image</th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th>Subtotal</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let item of cart(); let i = index">
+
+          <td>
+            <input type="checkbox" [(ngModel)]="item.selected" (change)="updateTotal()" />
+          </td>
+
+          <td><img [src]="item.image" class="cart-img"></td>
+
+          <td>{{ item.title }}</td>
+
+          <td>${{ item.price }}</td>
+
+          <td>
+            <div class="qty-box">
+              <button (click)="decreaseQty(item)">-</button>
+              <input type="number" [(ngModel)]="item.qty" (change)="updateTotal()" min="1" />
+              <button (click)="increaseQty(item)">+</button>
+            </div>
+          </td>
+
+          <td>${{ item.qty * item.price }}</td>
+
+          <td>
+            <button class="btn btn-outline-danger btn-sm" (click)="confirmDelete(item)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="summary-box ms-auto mt-4">
+      <h5>Cart Summary</h5>
+      <p class="fw-bold mb-3">Total: ${{ total }}</p>
+
+<button class="btn btn-primary w-100" [disabled]="total === 0" (click)="proceedToCheckout()">
+        Proceed to Checkout
+      </button>
+    </div>
+  </div>
+
+  <ng-template #emptyCart>
+    <p class="text-center empty">Your cart is empty 🛍</p>
+  </ng-template>
+
+</section>
+
+<div class="modal fade" id="deleteModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content p-4">
+      <h5 class="mb-3">Delete Item?</h5>
+      <p>Are you sure you want to remove this product?</p>
+
+      <div class="d-flex justify-content-end gap-2 mt-3">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-danger" (click)="deleteConfirmed()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>

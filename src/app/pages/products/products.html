@@ -1,1 +1,249 @@
-<p>products works!</p>
+<div class="top-strip text-white text-center py-1">
+  <small>Fast delivery across Lebanon!</small>
+</div>
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+  <div class="container">
+
+    <a class="navbar-brand fw-bold gradient-text" routerLink="/">SMART LIFE</a>
+
+    <button
+      class="navbar-toggler border-0"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+
+      <ul class="navbar-nav mx-auto fw-semibold">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/allproducts" routerLinkActive="active">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/categories" routerLinkActive="active">Categories</a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-3">
+
+        <i
+          class="bi bi-search fs-5 nav-icon-hover"
+          routerLink="/search"
+          data-bs-toggle="tooltip"
+          data-bs-title="Search">
+        </i>
+
+        <i
+          class="bi bi-heart fs-5 nav-icon-hover"
+          routerLink="/wishlist"
+          data-bs-toggle="tooltip"
+          data-bs-title="Your Wishlist">
+        </i>
+
+        <i
+          class="bi bi-bag fs-5 nav-icon-hover"
+          routerLink="/cart"
+          data-bs-toggle="tooltip"
+          data-bs-title="Your Cart">
+        </i>
+
+        <i
+          class="bi bi-info-circle-fill fs-5 nav-icon-hover"
+          routerLink="/about"
+          data-bs-toggle="tooltip"
+          data-bs-title="About Us">
+        </i>
+
+        <i
+          class="bi bi-person-circle fs-5 nav-icon-hover"
+          routerLink="/profile"
+          data-bs-toggle="tooltip"
+          data-bs-title="Your Profile">
+        </i>
+
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="slides" [style.transform]="'translateX(-' + currentSlide*100 + '%)'">
+    <div class="slide" *ngFor="let s of heroImages; let i = index">
+      <img [src]="s.src" [alt]="s.title" />
+      <div class="caption">
+        <p class="kicker">NEW COLLECTION</p>
+        <h2>{{ s.title }}</h2>
+        <p class="desc">{{ s.desc }}</p>
+      </div>
+    </div>
+  </div>
+  <button class="arrow prev" (click)="prevSlide()"><i class="bi bi-chevron-left"></i></button>
+  <button class="arrow next" (click)="nextSlide()"><i class="bi bi-chevron-right"></i></button>
+  <div class="dots">
+    <span *ngFor="let s of heroImages; let i = index"
+          (click)="goTo(i)"
+          [class.active]="i === currentSlide"></span>
+  </div>
+</section>
+
+<section class="collections text-center py-5">
+  <div class="container">
+    <h3 class="fw-bold mb-3 section-title">Collections</h3>
+    <div class="line mx-auto mb-4"></div>
+
+    <div class="row g-4 justify-content-center">
+      <div *ngFor="let cat of categories()" class="col-6 col-md-4 col-lg-3">
+<div
+  class="card border-0 shadow-sm h-100 collection-card"
+  (click)="goToCategory(cat)"
+>          <div class="card-img-wrap">
+            <img [src]="getImageForCategory(cat)" [alt]="cat" class="card-img-top p-3" />
+          </div>
+          <div class="card-body">
+            <h6 class="fw-semibold text-primary">{{ cat | titlecase }}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="recommended py-5 text-center bg-light">
+  <div class="container">
+    <div class="section-header mb-4">
+      <p class="kicker text-muted mb-1">
+        <i class="bi bi-cloud-sun"></i> Personalized Picks
+      </p>
+      <h3 class="fw-bold">Recommended for {{ appState.weather()?.condition || 'Today' }}</h3>
+      <div class="line mx-auto mt-2"></div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      <div *ngFor="let p of weatherRecommended()" class="col-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100 recommended-card" (click)="viewDetails(p.id)">
+          <div class="img-wrap">
+            <img [src]="p.image" [alt]="p.title" class="card-img-top p-3" />
+          </div>
+          <div class="card-body">
+            <h6 class="fw-semibold">{{ p.title }}</h6>
+            <p class="fw-bold text-primary mb-0">{{ p.price | currency }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="hot-deals text-white py-5">
+  <div class="container text-center">
+    <div class="section-header mb-5">
+      <p class="kicker text-light mb-1"><i class="bi bi-fire"></i> Limited Offers</p>
+      <h3 class="fw-bold">Weekly Hot Deals</h3>
+      <div class="line mx-auto mt-2"></div>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+      <div *ngFor="let p of saleProducts()" class="col-6 col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100 hot-card text-center" (click)="viewDetails(p.id)">
+          <div class="position-relative img-wrap">
+            <img [src]="p.image" [alt]="p.title" class="card-img-top p-3" />
+            <span class="badge bg-danger position-absolute top-0 start-0 m-2">SALE</span>
+            <span class="discount position-absolute top-0 end-0 m-2">-{{ randomDiscount() }}%</span>
+          </div>
+
+          <div class="card-body">
+            <h6 class="fw-semibold">{{ p.title }}</h6>
+            <div class="prices">
+              <span class="old text-decoration-line-through text-muted me-2">
+                {{ (p.price + 25) | currency }}
+              </span>
+              <span class="new fw-bold text-primary">{{ p.price | currency }}</span>
+            </div>
+            <button class="btn btn-primary btn-sm mt-3 px-4 py-2 fw-semibold">Buy Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="happy-customers py-5 text-center" id="satisfied">
+  <div class="container">
+    <h3 class="fw-bold mb-3 section-title">
+      <i class="bi bi-emoji-smile"></i> Our Happy Customers
+    </h3>
+    <div class="line mx-auto mb-5"></div>
+
+    <div class="row g-4 justify-content-center">
+      <div class="col-10 col-md-4">
+        <div class="stat-card shadow-sm p-4 rounded-4">
+          <i class="bi bi-people-fill fs-1 text-primary mb-2"></i>
+          <h4 class="fw-bold">
+            <span class="counter" data-target="98">0</span>%
+          </h4>
+          <p class="mb-0 text-muted">Satisfaction</p>
+        </div>
+      </div>
+
+      <div class="col-10 col-md-4">
+        <div class="stat-card shadow-sm p-4 rounded-4">
+          <i class="bi bi-truck fs-1 text-primary mb-2"></i>
+          <h4 class="fw-bold">
+            <span class="counter" data-target="95">0</span>%
+          </h4>
+          <p class="mb-0 text-muted">Fast Delivery</p>
+        </div>
+      </div>
+
+      <div class="col-10 col-md-4">
+        <div class="stat-card shadow-sm p-4 rounded-4">
+          <i class="bi bi-hand-thumbs-up fs-1 text-primary mb-2"></i>
+          <h4 class="fw-bold">
+            <span class="counter" data-target="99">0</span>%
+          </h4>
+          <p class="mb-0 text-muted">Positive Reviews</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer text-white py-5 mt-5">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-12 col-md-4">
+        <h5 class="fw-bold mb-2">Smart Life</h5>
+        <p class="small mb-0">
+          Modern design, fast delivery, trusted worldwide.
+        </p>
+      </div>
+
+      <div class="col-6 col-md-4">
+        <h6 class="fw-semibold mb-3">Links</h6>
+        <ul class="list-unstyled small">
+          <li><a href="#" class="text-white text-decoration-none">Shop</a></li>
+          <li><a href="#" class="text-white text-decoration-none">About</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-4">
+        <h6 class="fw-semibold mb-3">Follow Us</h6>
+        <div class="d-flex gap-3 fs-5">
+          <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="text-white"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-white"><i class="bi bi-twitter-x"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <hr class="border-light my-4" />
+
+    <div class="text-center small">
+      © 2025 <strong>Smart Life</strong>. All rights reserved.
+    </div>
+  </div>
+</footer>

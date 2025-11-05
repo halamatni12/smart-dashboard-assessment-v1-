@@ -1,0 +1,133 @@
+:root {
+  --primary: #0077ff;
+  --gradient: linear-gradient(135deg, #4facfe, #00f2fe);
+  --bg-light: #f5f9ff;
+  --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.categories {
+  background: linear-gradient(180deg, #eaf3ff 0%, #ffffff 100%);
+  padding: 4rem 1rem 6rem;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  color: #002b5b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+.header p {
+  color: #475569;
+  font-size: 1.05rem;
+  margin-bottom: 3rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.cat-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: var(--card-shadow);
+  padding: 2.5rem 1rem;
+  transition: all 0.35s ease;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.cat-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 2px;
+  background: var(--gradient);
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.cat-card:hover::before {
+  opacity: 1;
+}
+
+.cat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 30px rgba(0, 119, 255, 0.15);
+}
+
+.icon {
+  width: 80px;
+  height: 80px;
+  background: var(--gradient);
+  color:linear-gradient(135deg, #4facfe, #00f2fe);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  margin: 0 auto 1rem;
+  box-shadow: 0 4px 15px rgba(0, 119, 255, 0.25);
+  transition: transform 0.3s ease;
+}
+.cat-card:hover .icon {
+  transform: scale(1.1);
+}
+.icon i {
+  transition: transform 0.3s ease;
+}
+.cat-card:hover .icon i {
+  transform: rotate(10deg) scale(1.1);
+}
+
+h4 {
+  font-size: 1.1rem;
+  color: #1e293b;
+  font-weight: 600;
+  margin-top: 0.8rem;
+}
+
+.no-cats {
+  color: #475569;
+  margin-top: 3rem;
+}
+.no-cats i {
+  font-size: 2.5rem;
+  color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+  .icon {
+    width: 65px;
+    height: 65px;
+    font-size: 1.8rem;
+  }
+  .cat-card {
+    padding: 1.8rem 0.5rem;
+  }
+}

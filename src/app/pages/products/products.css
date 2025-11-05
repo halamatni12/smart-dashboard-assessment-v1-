@@ -1,0 +1,473 @@
+:root {
+  --primary: #3ba7ff;
+  --primary-dark: #0077ff;
+  --bg1: #4facfe;
+  --bg2: #00f2fe;
+  --text: #2b3a55;
+  --muted: #556b8b;
+  --paper: rgba(255, 255, 255, 0.88);
+  --shadow: rgba(30, 64, 175, 0.08);
+}
+
+:host {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text);
+  background: #f8fbff;
+}
+.navbar {
+  position: relative;
+  z-index: 9999 !important;
+}
+
+/* 🧱 تأكدي إن الـ sections التحت ما يغطّوا عليه */
+.hero, .collections, .recommended, .hot-deals, .happy-customers {
+  position: relative;
+  z-index: 1;
+}
+.top-strip {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  letter-spacing: 0.5px;
+}
+
+.brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 3px;
+  cursor: pointer;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: #0077ff !important;
+}
+
+.navbar .bi {
+  cursor: pointer;
+  transition: 0.3s;
+}
+.navbar .bi:hover {
+  color: #0077ff;
+}
+
+.count-badge {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  background: #0077ff;
+  color: white;
+}
+.gradient-text {
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.bi {
+  cursor: pointer;
+  transition: 0.25s;
+}
+.bi:hover {
+  color: #0077ff;
+  transform: translateY(-2px);
+}
+
+.bi:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.hero {
+  position: relative;
+  overflow: hidden;
+  height: 70vh;
+  min-height: 520px;
+}
+.slides {
+  display: flex;
+  height: 100%;
+  transition: transform .6s ease;
+}
+.slide {
+  position: relative;
+  min-width: 100%;
+  height: 100%;
+}
+.slide img {
+  width: 100%;
+  height: 100%;
+  
+  object-fit: cover;
+}
+.caption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(0deg, rgba(0, 0, 0, .35), rgba(0, 0, 0, .1));
+  text-align: center;
+  padding: 1rem;
+}
+.caption h2 {
+  font-size: 3rem;
+  font-family: 'Playfair Display', serif;
+  margin: .5rem 0;
+}
+.caption button {
+  background: white;
+  border: none;
+  color: var(--text);
+  font-weight: 700;
+  padding: .8rem 1.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .3s;
+}
+.caption button:hover {
+  background: var(--primary-dark);
+  color: #fff;
+}
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--paper);
+  border: none;
+  box-shadow: 0 10px 25px var(--shadow);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.prev { left: 14px; }
+.next { right: 14px; }
+.dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+}
+.dots span {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: #ffffff80;
+  cursor: pointer;
+  transition: .3s;
+}
+.dots span.active {
+  background: #fff;
+  width: 24px;
+  border-radius: 6px;
+}
+
+.section-header {
+  text-align: center;
+  margin: 4rem auto 2.5rem;
+  max-width: 800px;
+}
+.section-header .kicker {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: .85rem;
+  color: var(--muted);
+  margin-bottom: .4rem;
+}
+.section-header h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--text);
+  margin-bottom: .5rem;
+}
+.section-header .line {
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--bg1), var(--bg2));
+  margin: .6rem auto;
+  border-radius: 4px;
+}
+
+.collections {
+  background-color: #f8fbff;
+}
+
+.line {
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  border-radius: 3px;
+}
+
+.collection-card {
+  cursor: pointer;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.collection-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-wrap {
+  background: #f1f5f9;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 180px;
+  overflow: hidden;
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.35s ease;
+}
+
+.collection-card:hover img {
+  transform: scale(1.05);
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: #1e293b;
+}
+
+.col-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  transition: all 0.35s ease;
+}
+.col-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+}
+.col-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: contain;
+  padding: 1rem;
+  background: #f1f5f9;
+  transition: transform 0.35s ease;
+}
+.col-card:hover img {
+  transform: scale(1.05);
+}
+.col-card .label {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+
+.recommended {
+  background-color: #f9fbff;
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+}
+
+.line {
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  border-radius: 3px;
+}
+
+.recommended-card {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px;
+}
+
+.recommended-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+}
+
+.img-wrap {
+  background: #f1f5f9;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  overflow: hidden;
+}
+
+.img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.35s ease;
+}
+
+.recommended-card:hover img {
+  transform: scale(1.05);
+}
+
+.recommended h6 {
+  color: #1e293b;
+  font-size: 0.95rem;
+}
+
+.hot-deals {
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  color: #f8fafc;
+}
+
+.line {
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  border-radius: 3px;
+}
+
+.kicker {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+}
+
+.hot-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.hot-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.img-wrap {
+  background: #f1f5f9;
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.35s ease;
+}
+
+.hot-card:hover img {
+  transform: scale(1.05);
+}
+
+.badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+}
+
+.discount {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  color: #fff;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.prices {
+  margin-top: 0.5rem;
+}
+
+.old {
+  opacity: 0.7;
+}
+
+.new {
+  font-size: 1.1rem;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+}
+.stat-card {
+  opacity: 1;
+  transform: none;
+}
+
+.counter {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0077ff;
+  transition: color 0.3s ease;
+}
+
+.counter.finished {
+  color: #0055cc;
+}
+
+.footer {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.footer h5,
+.footer h6 {
+  font-family: 'Playfair Display', serif;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
+
+.footer hr {
+  opacity: 0.2;
+}
+
+.footer .bi {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer .bi:hover {
+  transform: scale(1.2);
+  color: #e0eaff;
+}
+
+

@@ -1,0 +1,83 @@
+
+<div class="top-strip text-white text-center py-1">
+  <small>Fast delivery across Lebanon!</small>
+</div>
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+  <div class="container">
+
+    <a class="navbar-brand fw-bold gradient-text" routerLink="/">SMART LIFE</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+
+      <ul class="navbar-nav mx-auto fw-semibold">
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-1" routerLink="/products" routerLinkActive="active">
+            <i class="bi bi-house-door-fill nav-icon"></i> <span>Home</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-1" routerLink="/allproducts" routerLinkActive="active">
+            <i class="bi bi-grid-fill nav-icon"></i> <span>Products</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center gap-1" routerLink="/categories" routerLinkActive="active">
+            <i class="bi bi-list-ul nav-icon"></i> <span>Categories</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-3">
+
+        <i
+          class="bi bi-search fs-5"
+          routerLink="/search"
+          data-bs-toggle="tooltip"
+          data-bs-title="Search">
+        </i>
+
+        <i
+          class="bi bi-heart fs-5"
+          routerLink="/wishlist"
+          data-bs-toggle="tooltip"
+          data-bs-title="Your Wishlist">
+        </i>
+
+        <i
+          class="bi bi-bag fs-5 position-relative"
+          routerLink="/cart"
+          data-bs-toggle="tooltip"
+          data-bs-title="Your Cart">
+        </i>
+
+        <i
+          class="bi bi-info-circle-fill fs-5"
+          routerLink="/about"
+          data-bs-toggle="tooltip"
+          data-bs-title="About Us">
+        </i>
+
+        <i
+          class="bi bi-person-circle fs-5"
+          routerLink="/profile"
+          data-bs-toggle="tooltip"
+          data-bs-title="Your Profile">
+        </i>
+      </div>
+    </div>
+  </div>
+</nav>

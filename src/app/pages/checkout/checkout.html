@@ -1,0 +1,86 @@
+<app-navbar></app-navbar>
+
+<section class="checkout container py-5">
+  <h2 class="fw-bold mb-4">Checkout</h2>
+
+  <div class="card p-4 mb-4">
+    <h5>👩‍💼 Customer Information</h5>
+    <div class="row mt-3 g-3">
+      <div class="col-md-6">
+        <label>Full Name</label>
+        <input type="text" class="form-control" [(ngModel)]="customer.name">
+      </div>
+      <div class="col-md-6">
+        <label>Email (optional)</label>
+        <input type="email" class="form-control" [(ngModel)]="customer.email">
+      </div>
+      <div class="col-md-6">
+        <label>Phone</label>
+        <input type="tel" class="form-control" [(ngModel)]="customer.phone">
+      </div>
+    </div>
+  </div>
+
+  <div class="card p-4 mb-4">
+    <h5>📍 Delivery Address</h5>
+    <div class="row mt-3 g-3">
+      <div class="col-12">
+        <label>Street Address</label>
+        <textarea class="form-control" rows="2" [(ngModel)]="address.street"></textarea>
+      </div>
+      <div class="col-md-4">
+        <label>City</label>
+        <input type="text" class="form-control" [(ngModel)]="address.city">
+      </div>
+      <div class="col-md-4">
+        <label>Area (optional)</label>
+        <input type="text" class="form-control" [(ngModel)]="address.area">
+      </div>
+      <div class="col-md-4">
+        <label>Postal Code (optional)</label>
+        <input type="text" class="form-control" [(ngModel)]="address.postal">
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <label>Select Delivery Zone</label>
+      <div class="d-flex gap-4 mt-2">
+        <label><input type="radio" [(ngModel)]="address.zone" value="inside"> Inside Beirut — $4</label>
+        <label><input type="radio" [(ngModel)]="address.zone" value="outside"> Outside Beirut — $5</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="card p-4 mb-4">
+    <h5>💳 Payment Method</h5>
+    <select class="form-select mt-3" [(ngModel)]="payment">
+      <option value="cod">Cash on Delivery</option>
+      <option value="card">Credit / Debit Card</option>
+    </select>
+  </div>
+
+  <div class="card p-4 mb-4">
+    <h5>🧾 Order Summary</h5>
+
+    <div *ngIf="checkoutItems.length > 0; else emptyCheckout" class="summary mt-3">
+      <div *ngFor="let item of checkoutItems" class="d-flex justify-content-between mb-2">
+        <span>{{ item.title }} × {{ item.qty }}</span>
+        <span>${{ item.price * item.qty }}</span>
+      </div>
+      <hr>
+      <p>Subtotal: ${{ subtotal }}</p>
+      <p>Delivery Fee: ${{ deliveryFee }}</p>
+      <h5 class="text-success">Total: ${{ total }}</h5>
+    </div>
+
+    <ng-template #emptyCheckout>
+      <p class="text-center text-muted mt-3">Your checkout is empty 🛒</p>
+    </ng-template>
+  </div>
+
+  <button class="btn btn-success w-100 py-3 fw-bold" (click)="confirmOrder()">
+    ✅ Confirm & Place Order
+  </button>
+</section>
+
+<app-footer></app-footer>

@@ -13,6 +13,8 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+               "outputPath": "dist/smart-dashboard-assessment/browser",
+"index":"src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
@@ -29,6 +31,10 @@
               "src/styles.css"
             ]
           },
+
+
+          
+          
           "configurations": {
             "production": {
               "budgets": [
@@ -65,12 +71,33 @@
           },
           "defaultConfiguration": "development"
         },
+          "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/smart-dashboard-assessment",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "sourceMap": false,
+              "optimization": true
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"
         },
         "test": {
           "builder": "@angular/build:karma",
           "options": {
+            
             "polyfills": [
               "zone.js",
               "zone.js/testing"
@@ -83,8 +110,12 @@
               }
             ],
             "styles": [
-              "src/styles.css"
-            ]
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "src/styles.css"
+            ],
+"scripts": [
+  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+]
           }
         }
       }

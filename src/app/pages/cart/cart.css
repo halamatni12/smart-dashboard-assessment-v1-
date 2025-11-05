@@ -1,0 +1,94 @@
+.cart-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  background: #f5f9ff;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.qty-box {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.qty-box button {
+  background: #0077ff;
+  color: white;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.qty-box input {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ccd;
+  border-radius: 6px;
+}
+
+.summary-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  width: 260px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+.table {
+  width: 100%;
+  display: table;
+}
+
+@media (max-width: 900px) {
+
+  table thead {
+    display: none; 
+  }
+
+  table tr {
+    display: block;
+    margin-bottom: 1rem;
+    background: white;
+    padding: 12px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+  }
+
+  table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border: none !important;
+    font-size: 14px;
+  }
+
+  table td img.cart-img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .qty-box {
+    justify-content: flex-end;
+  }
+
+  .summary-box {
+    width: 100%;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .qty-box input {
+    width: 40px;
+  }
+
+  .qty-box button {
+    padding: 4px 8px;
+  }
+
+  .summary-box h5 {
+    font-size: 16px;
+  }
+}

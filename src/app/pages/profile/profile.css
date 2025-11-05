@@ -1,0 +1,71 @@
+.profile-page {
+  min-height: 85vh;
+  background: #f8fbff;
+}
+
+.profile-card {
+  max-width: 750px;
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid #e6ebf3;
+  transition: all 0.3s ease;
+}
+.profile-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 22px rgba(0, 123, 255, 0.08);
+}
+
+.avatar i {
+  font-size: 3.5rem;
+  color: #4facfe;
+}
+
+.btn-outline {
+  border-radius: 10px;
+  border: 1.5px solid #0077ff;
+  transition: all 0.25s ease;
+}
+.btn-outline-danger:hover {
+  background: #0077ff;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.order-card {
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid #e5e9f2;
+  transition: all 0.3s ease;
+}
+.order-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 123, 255, 0.1);
+}
+
+.bg-gradient {
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.line {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 1.5rem;
+  }
+}

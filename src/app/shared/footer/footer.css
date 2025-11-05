@@ -1,0 +1,22 @@
+.footer {
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  border-radius: 16px 16px 0 0;
+}
+
+.footer a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer i {
+  cursor: pointer;
+  transition: 0.3s;
+}
+.footer i:hover {
+  transform: scale(1.2);
+  color: #e2e8f0;
+}

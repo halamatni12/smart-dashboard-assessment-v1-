@@ -1,0 +1,31 @@
+.wishlist-page h2 {
+  font-weight: 700;
+  color: #003366;
+}
+
+.wish-card {
+  background: #fff;
+  border-radius: 16px;
+  transition: 0.3s;
+}
+.wish-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+}
+
+.image-box {
+  border-radius: 14px;
+  padding: 12px;
+  background: #f8fbff;
+  text-align: center;
+}
+
+.wish-card img {
+  height: 180px;
+  object-fit: contain;
+}
+
+.price {
+  color: #0077ff;
+  font-size: 1.1rem;
+}

@@ -1,61 +1,103 @@
-# SmartDashboardAssessment
+# 🌦️ Smart Dashboard Assessment v1
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.7.
+A full-featured **Angular 17** application combining a real-time **Weather Dashboard** with an integrated **E-Commerce System**, built to demonstrate advanced frontend development using **Firebase**, **Bootstrap 5**, and modern **Angular Signals** state management.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🚀 Overview
 
-```bash
+The **Smart Dashboard Assessment v1** offers a modern and interactive user experience featuring:
+- Real-time **Weather System** that adapts UI and visuals dynamically.  
+- Integrated **E-Commerce module** with Cart, Wishlist, and Checkout.  
+- Secure **Firebase Authentication** for user login and registration.  
+- Fully tested components with **Unit & E2E tests**.
+
+---
+
+## ✨ Key Features
+
+### 🌤 Weather System
+- Fetches live weather data using **Open-Meteo API**.  
+- Displays temperature, humidity, and multi-day forecast.  
+- Auto-detects user location via **Geolocation API**.  
+- Changes UI background and theme based on weather condition.
+
+### 🛍 E-Commerce Module  
+*(Product API: Fetch and display products from [FakeStore API](https://fakestoreapi.com/))*  
+- Dynamic product catalog with filtering and categories.  
+- Add to **Cart** or **Wishlist** instantly.  
+- Automatic **price calculations** and live total updates.  
+- Product details with images, description, and price.  
+- Smooth **Checkout** process with form validation.
+
+### 🔐 Authentication (Firebase)
+- User **Login / Signup / Forgot Password** workflows.  
+- Persistent authentication state with **Angular Signals**.  
+- Auto-redirects and secure logout with confirmation prompt.
+
+### 💡 UI / UX Design
+- Fully responsive layout using **Bootstrap 5** + custom CSS variables.  
+- Clean glassmorphism interface with light & dark themes.  
+- Modular and reusable components (Navbar, Footer, Cards, Modals).  
+- Smooth animations and state-driven updates.
+
+---
+
+## 🧠 Tech Stack
+
+| Layer | Technology |
+|-------|-------------|
+| **Frontend Framework** | Angular 17 (Standalone Components) |
+| **Styling** | Bootstrap 5 + Custom CSS |
+| **Auth & Backend** | Firebase Authentication |
+| **Weather API** | Open-Meteo API |
+| **State Management** | Angular Signals |
+| **Testing** | Jasmine + Karma + Playwright |
+| **Version Control** | Git / GitHub |
+
+---
+
+## 🧩 How to Run
+
+1- **Clone the repository**
+   ```bash
+   git clone https://github.com/halamatni12/smart-dashboard-assessment-v1.git
+   cd smart-dashboard-assessment-v1
+
+2.Install dependencies
+npm install
+
+
+3.Run the development server
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+4.Open the app in your browser
 
-## Code scaffolding
+http://localhost:4200
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
-```
+🧪 Testing
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Run unit tests:
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
 ng test
-```
 
-## Running end-to-end tests
 
-For end-to-end (e2e) testing, run:
+Run end-to-end (Playwright) tests:
 
-```bash
-ng e2e
-```
+npx playwright test
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+🧾Assessment Criteria Alignment
+Criteria	Description
+UI/UX Design	Clean, responsive, and modern interface
+Functionality	Weather system, Firebase Auth, and E-Commerce logic
+Code Quality	Modular, reusable, and well-structured
+State Management	Angular Signals (no localStorage)
+Testing	Full coverage with Jasmine & Playwright
+Documentation	Professional README with setup guide
+👩‍💻 Author
 
-## Additional Resources
+Hala Almatni
+📧 halamatni12@gmail.com
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-# -assessment-_smart-dashboard-
-# smart-dashboard-assessment-v1-
+💻 GitHub: halamatni12

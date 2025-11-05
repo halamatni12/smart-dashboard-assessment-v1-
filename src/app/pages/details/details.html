@@ -1,0 +1,70 @@
+<app-navbar></app-navbar>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="appToast" class="toast align-items-center text-bg-primary border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body" id="toastMessage">Item Added!</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<section class="details-page" *ngIf="!loading && product">
+  <div class="product-container container">
+
+    <div class="image-side">
+      <div class="main-image">
+        <img [src]="selectedImage || product.image" />
+      </div>
+
+      <div class="thumbs">
+        <img *ngFor="let img of thumbnails" [src]="img"
+             [class.active]="selectedImage === img"
+             (click)="selectedImage = img" />
+      </div>
+    </div>
+
+    <div class="info-side">
+      <h1>{{ product.title }}</h1>
+      <p class="category">{{ product.category | titlecase }}</p>
+      <p class="desc">{{ product.description }}</p>
+      <div class="price">${{ product.price }}</div>
+
+      <div *ngIf="isClothing" class="sizes">
+        <label>Select Size:</label>
+        <div class="size-options">
+          <button *ngFor="let s of sizes"
+                  class="size-btn"
+                  [class.active]="selectedSize === s"
+                  (click)="selectSize(s)">
+            {{ s }}
+          </button>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn add" (click)="addToCart()">
+          <i class="bi bi-bag-plus"></i> Add to Cart
+        </button>
+        <button class="btn wish" (click)="addToWishlist()">
+          <i class="bi bi-heart"></i> Wishlist
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="recommend container">
+    <h3><i class="bi bi-stars"></i> You may also like</h3>
+    <div class="grid">
+      <div *ngFor="let item of relatedProducts" class="card" (click)="viewDetails(item.id)">
+        <div class="img-wrap">
+          <img [src]="item.image" />
+        </div>
+        <h4>{{ item.title }}</h4>
+        <p class="price">${{ item.price }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>

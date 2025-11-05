@@ -1,0 +1,23 @@
+.search-section {
+  background: #f8fbff;
+  min-height: 100vh;
+}
+
+.input-group .form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(59, 167, 255, 0.25);
+}
+
+.product-card {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
+.img-wrap img {
+  height: 180px;
+  object-fit: contain;
+}

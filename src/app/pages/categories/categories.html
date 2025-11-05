@@ -1,0 +1,40 @@
+<app-navbar></app-navbar>
+
+<section class="categories">
+  <div class="header">
+    <h2><i class="bi bi-grid"></i> Browse Categories</h2>
+    <p>Find your favorite products by exploring our main collections.</p>
+  </div>
+
+  <div *ngIf="categories.length > 0; else noCats" class="grid">
+    <div *ngFor="let c of categories" class="cat-card" (click)="router.navigate(['/category', c])">
+      <div class="icon">
+        <i
+          class="bi"
+          [ngClass]="{
+            'bi-person-badge': c.toLowerCase().includes('men'),
+            'bi-gem': c.toLowerCase().includes('jewel'),
+            'bi-laptop': c.toLowerCase().includes('electronic'),
+            'bi-person-hearts': c.toLowerCase().includes('women'),
+            'bi-tag': !(
+              c.toLowerCase().includes('men') ||
+              c.toLowerCase().includes('jewel') ||
+              c.toLowerCase().includes('electronic') ||
+              c.toLowerCase().includes('women')
+            )
+          }"
+        ></i>
+      </div>
+      <h4>{{ c | titlecase }}</h4>
+    </div>
+  </div>
+
+  <ng-template #noCats>
+    <div class="no-cats">
+      <i class="bi bi-emoji-frown"></i>
+      <p>No categories available yet.</p>
+    </div>
+  </ng-template>
+</section>
+
+<app-footer></app-footer>

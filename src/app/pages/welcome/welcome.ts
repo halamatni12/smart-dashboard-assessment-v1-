@@ -74,7 +74,9 @@ export class WelcomeComponent implements OnInit {
     if (code >= 95 && code <= 99) return 'Thunderstorm';
     return 'Clouds';
   }
+goToWeather() {
+  this.router.navigate(['/weather/dashboard']);
+}
 
-  goToWeather() { this.router.navigate(['/dashboard']); }
   goToProducts() { this.router.navigate(['/products']); }
 }

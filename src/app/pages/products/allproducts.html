@@ -1,0 +1,60 @@
+<app-navbar></app-navbar>
+
+<section class="all-products">
+  <div class="header">
+    <h2><i class="bi bi-bag-check"></i> Explore All Products</h2>
+    <p>Shop smart — discover items tailored to your lifestyle.</p>
+  </div>
+
+  <div class="filters">
+    <div class="filter-group">
+      <label>Category:</label>
+      <select [(ngModel)]="selectedCategory" (change)="applyFilters()">
+        <option value="">All</option>
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat | titlecase }}</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Max Price:</label>
+      <input type="range" min="0" max="5000" step="10" [(ngModel)]="maxPrice" (change)="applyFilters()" />
+      <span>${{ maxPrice }}</span>
+    </div>
+
+    <div class="filter-group">
+      <label>Sort by:</label>
+      <select [(ngModel)]="sortOption" (change)="applySort()">
+        <option value="none">Default</option>
+        <option value="az">Alphabetical (A–Z)</option>
+        <option value="za">Alphabetical (Z–A)</option>
+        <option value="low">Price: Low → High</option>
+        <option value="high">Price: High → Low</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="filteredProducts.length > 0; else noProducts" class="grid">
+    <div *ngFor="let p of filteredProducts" class="card" (click)="viewDetails(p.id)">
+      <div class="img-wrap">
+        <img [src]="p.image" [alt]="p.title" />
+        <div class="overlay">
+          <button class="view-btn"><i class="bi bi-eye"></i> View</button>
+        </div>
+      </div>
+      <h4>{{ p.title }}</h4>
+      <p class="category">{{ p.category | titlecase }}</p>
+      <p class="price">{{ p.price | currency }}</p>
+    </div>
+  </div>
+
+ 
+  <ng-template #noProducts>
+    <div class="no-products">
+      <i class="bi bi-emoji-frown"></i>
+      <p>No products found matching your filters.</p>
+    </div>
+  </ng-template>
+</section>
+
+
+<app-footer></app-footer>
