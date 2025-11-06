@@ -16,7 +16,15 @@
           <i class="bi bi-person-circle fs-4"></i>
           <span>{{ userName() }}</span>
         </div>
+     
+    
+      <div class="d-flex align-items-center gap-3 position-relative" style="z-index:10;">
+    <i class="bi bi-house-door-fill fs-4 icon-static-white"
+       style="cursor:pointer;"
+       [routerLink]="['/welcome']"></i>
+
         <button class="logout-btn" (click)="logout()">Logout</button>
+      </div>
       </div>
 
       <div class="search-wrapper mb-4 position-relative">
@@ -29,7 +37,7 @@
             [(ngModel)]="searchQuery"
             #cityInput
           />
-          <button class="logout-btn ms-2" (click)="onSearch(searchQuery)">
+          <button class="search-btn ms-2" (click)="onSearch(searchQuery)">
             Search
           </button>
         </div>

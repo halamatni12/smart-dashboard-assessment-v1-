@@ -3,12 +3,13 @@ import { NgIf, NgFor, DecimalPipe, DatePipe, NgClass } from '@angular/common';
 import { WeatherService } from '../../services/weather.service';
 import { AuthService } from '../../core/auth.service';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NgIf, NgFor, DecimalPipe, DatePipe, NgClass,FormsModule],
+  imports: [NgIf, NgFor, DecimalPipe, DatePipe, NgClass,FormsModule,RouterModule,],
   templateUrl: './dashboard.html',
   styleUrls: ['./dashboard.css'],
 })

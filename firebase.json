@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/smart-dashboard-assessment/browser",
+    "public": "dist/smart-dashboard-assessment/browser/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

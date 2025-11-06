@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  Auth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-} from '@angular/fire/auth';
 import { Router } from '@angular/router';
-
+import { AuthService } from '../../../core/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -21,14 +16,12 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   loading = false;
 
-  constructor(private auth: Auth, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    onAuthStateChanged(this.auth, (user) => {
-      if (user) {
-        this.router.navigate(['/welcome']);
-      }
-    });
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/welcome']);
+    }
   }
 
   async onLogin() {
@@ -42,7 +35,7 @@ export class LoginComponent implements OnInit {
     }
 
     try {
-      await signInWithEmailAndPassword(this.auth, this.email, this.password);
+      await this.authService.login(this.email, this.password); // ✅ من الـ service
       this.router.navigate(['/welcome']);
     } catch (error: any) {
       if (error.code === 'auth/user-not-found') {

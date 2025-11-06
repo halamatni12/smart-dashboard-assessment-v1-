@@ -7,13 +7,14 @@ import {
   createUserWithEmailAndPassword,
   signOut,
   updateProfile,
+  setPersistence,
+  browserLocalPersistence,
   User
 } from '@angular/fire/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   readonly auth = inject(Auth);
-
   private readonly router = inject(Router);
 
   readonly userSignal = signal<User | null>(null);
@@ -28,8 +29,8 @@ export class AuthService {
     onAuthStateChanged(this.auth, (user) => this.userSignal.set(user));
   }
 
-
-  login(email: string, password: string) {
+  async login(email: string, password: string) {
+    await setPersistence(this.auth, browserLocalPersistence); 
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 
@@ -48,7 +49,7 @@ export class AuthService {
 
   async logout() {
     await signOut(this.auth);
-    this.userSignal.set(null); 
-    this.router.navigate(['/login']); 
+    this.userSignal.set(null);
+    this.router.navigate(['/login']);
   }
 }
