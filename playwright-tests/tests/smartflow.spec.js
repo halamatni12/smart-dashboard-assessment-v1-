@@ -1,70 +1,181 @@
-﻿import { test, expect } from '@playwright/test';
+﻿const { test, expect } = require('@playwright/test');
 
-test('Full Smart Dashboard Flow', async ({ page }) => {
+// Pause helper (smooth timing)
+async function slow(page, ms = 900) {
+  await page.waitForTimeout(ms);
+}
 
-  // 1️⃣ افتح صفحة تسجيل الدخول
+// Scroll smoothly to bottom of page
+async function fullPageScroll(page, delay = 120) {
+  let lastPos = 0;
+  while (true) {
+    await page.mouse.wheel(0, 200);
+    await page.waitForTimeout(delay);
+
+    const newPos = await page.evaluate(() => window.scrollY);
+    if (newPos === lastPos) break;
+    lastPos = newPos;
+  }
+}
+
+// Scroll smoothly back to top
+async function scrollToTopSmooth(page, delay = 120) {
+  while (true) {
+    await page.mouse.wheel(0, -200);
+    await page.waitForTimeout(delay);
+
+    const atTop = await page.evaluate(() => window.scrollY === 0);
+    if (atTop) break;
+  }
+}
+
+test('🌤️ Full Smart Dashboard Weather + Products + Checkout Flow (Ultra Smooth)', async ({ page }) => {
+  test.setTimeout(1300000);
+
+  page.on('dialog', async dialog => dialog.accept());
+  page.on('console', msg => console.log(`[BROWSER]: ${msg.text()}`));
+
+  /* 1) LOGIN --------------------------------------------------------- */
   await page.goto('http://localhost:4200/login');
   await expect(page.locator('text=Welcome Back')).toBeVisible();
+  await slow(page);
 
-  // 2️⃣ سجل الدخول
   await page.fill('input[type="email"]', 'halaalmatni12@gmail.com');
+  await slow(page);
   await page.fill('input[type="password"]', 'hala@865033');
+  await slow(page);
+
   await page.click('button:has-text("Sign in")');
-  await page.waitForURL('**/welcome');
+  await page.waitForLoadState('networkidle');
+  await slow(page, 1200);
 
-  // 3️⃣ من صفحة welcome كبس على Smart Product Picks
-  await expect(page.locator('text=Smart Product Picks')).toBeVisible();
-  await page.click('text=Smart Product Picks');
-  await page.waitForURL('**/products');
+  /* 2) WEATHER DASHBOARD -------------------------------------------- */
+  await expect(page.locator('text=Welcome back')).toBeVisible({ timeout: 20000 });
+  await slow(page);
 
-  // 4️⃣ من صفحة All Products، افتح أول منتج
-  const firstProduct = page.locator('.card').first();
-  await firstProduct.click();
-  await page.waitForURL(/products\/\d+/);
+  await page.locator('[data-testid="weather-btn"]').click({ force: true });
+  await expect(page).toHaveURL(/weather\/dashboard/);
+  await slow(page);
 
-  // 5️⃣ اختار Size إذا موجود
-  const sizeBtn = page.locator('button:has-text("S")');
-  if (await sizeBtn.isVisible()) {
-    await sizeBtn.click();
+  const searchInput = page.locator('input[placeholder="Search city..."]');
+  await searchInput.click();
+  await slow(page);
+  await searchInput.pressSequentially('Canada', { delay: 200 });
+  await slow(page);
+  await page.click('button:has-text("Search")');
+  await slow(page, 1200);
+
+  //  Scroll FULL weather page then go back up nicely
+  await fullPageScroll(page, 140);
+  await slow(page, 900);
+  await scrollToTopSmooth(page, 140);
+  await slow(page, 1200);
+
+  await page.click('i.bi-house-door-fill');
+  await expect(page).toHaveURL(/\/welcome/);
+  await slow(page, 1000);
+
+  /* 3) PRODUCTS PAGE ------------------------------------------------ */
+  await page.locator('[data-testid="products-btn"]').click({ force: true });
+  await expect(page).toHaveURL(/\/products/);
+  await slow(page, 1000);
+
+  await fullPageScroll(page, 140);
+  await scrollToTopSmooth(page, 140);
+  await slow(page);
+
+  await page.locator('#all_products').click({ force: true });
+  await expect(page).toHaveURL(/\/allproducts/);
+  await slow(page, 1200);
+
+  await fullPageScroll(page, 140);
+  await slow(page, 600);
+
+  /* 4) PRODUCT DETAILS + SIZE + ADD ------------------------------- */
+  const firstCard = page.locator('.card').first();
+  await firstCard.click({ force: true });
+  await expect(page).toHaveURL(/\/products\/\d+/);
+  await slow(page, 1200);
+
+  // 🛒 Smooth scroll product details full page down then up
+  await fullPageScroll(page, 140);
+  await slow(page, 900);
+  await scrollToTopSmooth(page, 140);
+  await slow(page, 1000);
+
+  const sizeOptions = page.locator('.size-options .size-btn');
+  if (await sizeOptions.count() > 0) {
+    await sizeOptions.first().click();
+    console.log('👕 Size selected');
+    await slow(page, 800);
+  } else {
+    console.log('ℹ️ Product has no sizes');
   }
 
-  // 6️⃣ أضف المنتج إلى Wishlist و Cart
-  await page.click('button:has-text("Wishlist")');
-  await page.click('button:has-text("Add to Cart")');
-  await page.waitForTimeout(1000);
+  await slow(page);
 
-  // 7️⃣ افتح صفحة Wishlist
-  await page.click('i.bi-heart');
-  await page.waitForURL('**/wishlist');
-  await expect(page.locator('text=My Wishlist')).toBeVisible();
+  await page.click('.actions .btn.add');
+  await slow(page, 1200);
 
-  // 8️⃣ انقل المنتج من Wishlist إلى Cart
-  const moveBtn = page.locator('button:has-text("Move to Cart")');
-  if (await moveBtn.isVisible()) {
-    await moveBtn.click();
+  await page.click('.actions .btn.wish');
+  await slow(page, 1200);
+
+  /* 5) WISHLIST ------------------------------------------------------ */
+  await page.locator('i.bi-heart[routerlink="/wishlist"]').click({ force: true });
+  await expect(page).toHaveURL(/\/wishlist/);
+  await slow(page, 1200);
+
+  const deleteBtn = page.locator('button.btn-outline-danger').first();
+  if (await deleteBtn.isVisible()) {
+    await deleteBtn.click();
+    await slow(page, 800);
+
+    const modal = page.locator('#deleteModal');
+    await expect(modal).toBeVisible({ timeout: 7000 });
+
+    await modal.locator('.btn-danger').click();
+    await slow(page, 1200);
+
+    console.log('✅ Wishlist delete confirmed');
   }
-  await page.waitForTimeout(1000);
 
-  // 9️⃣ افتح صفحة Cart
-  await page.click('i.bi-bag');
-  await page.waitForURL('**/cart');
-  await expect(page.locator('text=Shopping Cart')).toBeVisible();
+  /* 6) CART + CHECKOUT ---------------------------------------------- */
+  await page.locator('i.bi-bag[routerlink="/cart"]').click({ force: true });
+  await expect(page).toHaveURL(/\/cart/);
+  await slow(page, 1200);
 
-  // ✅ 10️⃣ اختار منتج وحده و Proceed to Checkout
-  await page.locator('input[type="checkbox"]').first().check();
-  await page.click('button:has-text("Proceed to Checkout")');
-  await page.waitForURL('**/checkout');
+  const firstCheckbox = page.locator('input[type="checkbox"]').first();
+  if (await firstCheckbox.isVisible()) {
+    await firstCheckbox.check();
+    await slow(page, 700);
+  }
 
-  // 11️⃣ عبّي المعلومات بالفورم
-  await page.fill('input[placeholder="Full Name"]', 'Hala Almatni');
+  await page.locator('button:has-text("Proceed to Checkout")').click();
+  await expect(page).toHaveURL(/\/checkout/);
+  await slow(page, 1500);
+
+  /* 7) CHECKOUT FORM ------------------------------------------------ */
+  await page.fill('input[placeholder="Full Name"], input[type="text"]', 'Hala Almatni');
+  await slow(page);
+  await page.fill('input[type="email"]', 'halaalmatni12@gmail.com');
+  await slow(page);
   await page.fill('input[type="tel"]', '70123456');
-  await page.fill('textarea', 'Tripoli Main Road');
-  await page.click('input[value="inside"]');
+  await slow(page);
+  await page.fill('textarea[rows="2"]', 'Beirut Main Street');
+  await slow(page);
 
-  // 12️⃣ Confirm Order
-  await page.click('button:has-text("Confirm & Place Order")');
-  await page.waitForTimeout(1500);
+  await page.locator('input[value="inside"]').check();
+  await page.selectOption('select.form-select', 'cod');
+  await slow(page, 1200);
 
-  // 13️⃣ تأكّد إنو الطلب تأكّد
-  await expect(page.locator('text=Order Confirmed')).toBeVisible();
+  //  Scroll entire page before placing order
+  await fullPageScroll(page, 140);
+  await slow(page, 800);
+
+  await page.locator('button.btn-success').click({ force: true });
+  await slow(page, 2000);
+
+  await expect(page).toHaveURL(/\/profile/);
+  await slow(page, 1500);
+
 });

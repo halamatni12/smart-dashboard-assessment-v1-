@@ -27,13 +27,13 @@
 
       <div class="col-12 col-lg-6 fade-up delay-1">
         <div class="choices">
-          <button class="choice" (click)="goToWeather()">
+          <button class="choice" data-testid="weather-btn" (click)="goToWeather()">
             <div class="icon">🌤️</div>
             <div class="title">Weather Dashboard</div>
             <div class="desc">View today’s conditions and forecasts with insights.</div>
           </button>
 
-          <button class="choice" (click)="goToProducts()">
+          <button class="choice" data-testid="products-btn" (click)="goToProducts()">
             <div class="icon">🛍️</div>
             <div class="title">Smart Product Picks</div>
             <div class="desc">Get curated items that match your vibe and weather.</div>

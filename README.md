@@ -1,6 +1,7 @@
 # 🌦️ Smart Dashboard Assessment v1
 [![Live Demo](https://img.shields.io/badge/LIVE%20DEMO-Click%20Here-brightgreen?style=for-the-badge)](https://smart-lifestyle-bb812.web.app)
 
+![Playwright Tested](https://img.shields.io/badge/TESTED%20WITH-Playwright-purple?style=for-the-badge)
 
 A full-featured **Angular 17** application combining a real-time **Weather Dashboard** with an integrated **E-Commerce System**, built to demonstrate advanced frontend development using **Firebase**, **Bootstrap 5**, and modern **Angular Signals** state management.
 
@@ -87,9 +88,16 @@ ng test
 
 Run end-to-end (Playwright) tests:
 
-npx playwright test
+Run the test (with visible browser):
+npx playwright test --headed
+
+
+View test report:
+npx playwright show-report
+
 
 🧾Assessment Criteria Alignment
+
 Criteria	Description
 UI/UX Design	Clean, responsive, and modern interface
 Functionality	Weather system, Firebase Auth, and E-Commerce logic
@@ -97,6 +105,7 @@ Code Quality	Modular, reusable, and well-structured
 State Management	Angular Signals (no localStorage)
 Testing	Full coverage with Jasmine & Playwright
 Documentation	Professional README with setup guide
+
 👩‍💻 Author
 
 Hala Almatni
