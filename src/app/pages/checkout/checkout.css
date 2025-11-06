@@ -7,6 +7,17 @@
   border-radius: 16px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
+.my-confirm-btn {
+  background-color: #4facfe !important;
+  border-color: #4facfe !important;
+  color: #fff !important;
+  border-radius: 8px;
+  transition: 0.25s;
+}
+.my-confirm-btn:hover {
+  background-color: #4facfe !important;
+  border-color: #4facfe !important;
+}
 
 label {
   font-weight: 500;

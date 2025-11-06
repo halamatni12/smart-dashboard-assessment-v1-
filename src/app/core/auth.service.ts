@@ -43,9 +43,11 @@ export class AuthService {
     return cred;
   }
 
-  isLoggedIn() {
-    return this.userSignal() !== null;
-  }
+  isLoggedIn(): boolean {
+  const user = this.userSignal();
+  return user !== null && user !== undefined;
+}
+
 
   async logout() {
     await signOut(this.auth);

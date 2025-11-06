@@ -33,6 +33,7 @@ export class DetailsComponent implements OnInit {
   relatedProducts: any[] = [];
 
   ngOnInit() {
+    
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
       if (id) this.fetchProduct(id);

@@ -12,36 +12,43 @@ import { AboutComponent } from './pages/about/about';
 import { WishlistComponent } from './pages/wishlist/wishlist';
 import { CartComponent } from './pages/cart/cart';
 import { CheckoutComponent } from './pages/checkout/checkout';
-
 import { ProfileComponent } from './pages/profile/profile';
+import { SearchComponent } from './pages/search/search';
 
-
+import { AuthGuard } from './core/auth-guard';
 
 export const routes: Routes = [
+  // Auth Pages (No guard here)
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-    { path: 'welcome', loadComponent: () => import('./pages/welcome/welcome').then(m => m.WelcomeComponent) },
 
-{ path: 'weather/dashboard', component: DashboardComponent },
-     { path: 'products', component: ProductsComponent },
-     { path: 'products/category/:name', component: ProductsComponent }
-,{ path: 'products/:id', component: DetailsComponent },
-  { path: 'allproducts', component: AllProductsComponent },
-{ path: 'products/:id', component: ProductsComponent },
-  { path: 'categories', component: CategoriesComponent },
-  { path: 'category/:name', component: CategoryProductsComponent },
-  { path: 'about', component: AboutComponent },
-{ path: 'wishlist', component: WishlistComponent },
+  // Protected Pages
+  { 
+    path: 'welcome',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/welcome/welcome').then(m => m.WelcomeComponent)
+  },
 
-{ path: 'cart', component: CartComponent },
-{ path: 'checkout', component: CheckoutComponent },
-{ path: 'profile', component: ProfileComponent },
-{
-  path: 'search',
-  loadComponent: () =>
-    import('./pages/search/search').then(m => m.SearchComponent),
-},
+  { path: 'weather/dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
+
+  { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
+  { path: 'products/category/:name', component: ProductsComponent, canActivate: [AuthGuard] },
+
+  // 🚀 Details Page MUST be this one ONLY
+  { path: 'products/:id', component: DetailsComponent, canActivate: [AuthGuard] },
+
+  { path: 'allproducts', component: AllProductsComponent, canActivate: [AuthGuard] },
+
+  { path: 'categories', component: CategoriesComponent, canActivate: [AuthGuard] },
+  { path: 'category/:name', component: CategoryProductsComponent, canActivate: [AuthGuard] },
+
+  { path: 'about', component: AboutComponent, canActivate: [AuthGuard] },
+  { path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard] },
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
 
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];

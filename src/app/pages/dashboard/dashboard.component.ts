@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit {
   constructor(private weatherService: WeatherService, public auth: AuthService) {}
 
   ngOnInit() {
+    
     this.loading.set(true);
 
     if ('geolocation' in navigator) {

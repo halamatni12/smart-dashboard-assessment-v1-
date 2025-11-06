@@ -76,7 +76,7 @@ export class SignupComponent implements OnInit {
       const user = await createUserWithEmailAndPassword(this.auth, this.email, this.password);
       await updateProfile(user.user, { displayName: this.name });
       this.successMessage = '🎉 Account created successfully!';
-      setTimeout(() => this.router.navigate(['/welcome']), 1500);
+      this.router.navigate(['/welcome']);
     } catch (error: any) {
       if (error.code === 'auth/email-already-in-use') {
         this.errorMessage = '⚠️ Email already registered.';

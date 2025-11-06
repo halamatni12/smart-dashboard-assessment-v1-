@@ -180,7 +180,8 @@ await slow(page, 1200);
   await fullPageScroll(page, 140);
   await slow(page, 800);
 
-  await page.locator('button.btn-success').click({ force: true });
+await page.locator('button.my-confirm-btn').click({ force: true });
+
   await slow(page, 2000);
 
   await expect(page).toHaveURL(/\/profile/);
