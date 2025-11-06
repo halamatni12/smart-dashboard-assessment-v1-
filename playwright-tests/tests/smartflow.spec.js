@@ -114,11 +114,19 @@ test('🌤️ Full Smart Dashboard Weather + Products + Checkout Flow (Ultra Smo
 
   await slow(page);
 
-  await page.click('.actions .btn.add');
-  await slow(page, 1200);
+await page.click('.actions .btn.add');
+const toast = page.locator('#toastMessage');
+await expect(toast).toBeVisible({ timeout: 8000 });
+await expect(toast).toContainText(/Added to Cart/i);
+console.log('🛒 Added to Cart confirmed');
+await slow(page, 1200);
 
-  await page.click('.actions .btn.wish');
-  await slow(page, 1200);
+// Add to Wishlist + verify toast
+await page.click('.actions .btn.wish');
+await expect(toast).toBeVisible({ timeout: 8000 });
+await expect(toast).toContainText(/Added to Wishlist|Added to Cart/i);
+console.log('💖 Added to Wishlist confirmed');
+await slow(page, 1200);
 
   /* 5) WISHLIST ------------------------------------------------------ */
   await page.locator('i.bi-heart[routerlink="/wishlist"]').click({ force: true });
