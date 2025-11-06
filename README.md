@@ -36,7 +36,8 @@ The **Smart Dashboard Assessment v1** offers a modern and interactive user exper
 - User **Login / Signup / Forgot Password** workflows.  
 - Persistent authentication state with **Angular Signals**.  
 - Auto-redirects and secure logout with confirmation prompt.
-
+- All dashboard and shopping pages are securely protected using a custom **AuthGuard**, 
+  ensuring only authenticated users can access weather data, products, wishlist, cart, profile, and checkout pages.
 ### 💡 UI / UX Design
 - Fully responsive layout using **Bootstrap 5** + custom CSS variables.  
 - Clean glassmorphism interface with light & dark themes.  
